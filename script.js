@@ -17,7 +17,7 @@ nameStatus.classList.remove("input-invalid");
     let nameStatus = document.getElementById("name-field");
 nameStatus.classList.add("input-invalid");
 nameStatus.classList.remove("input-valid");
-    console.log("falsy af");
+nameError.innerHTML = "Name is required!"
 }
 
 })
@@ -28,22 +28,23 @@ form.addEventListener('submit', function(event){
 let carYearInput = document.querySelector("#car-year")
 let carYear = carYearInput.value
 
-let carMakeInput = document.querySelector("#car-make")
+let carMakeInput = document.querySelector("#car-make");
 let carMake = carMakeInput.value
 
-let carModelInput = document.querySelector("#car-model")
+let carModelInput = document.querySelector("#car-model");
 let carModel = carModelInput.value
 
 if(carYear && carMake && carModel){
 let carStatus = document.getElementById("car-field");
-carStatus.classList.add("input-valid")
-carStatus.classList.remove("input-invalid")
-    console.log("truthy af")
+carStatus.classList.add("input-valid");
+carStatus.classList.remove("input-invalid");
+    console.log("truthy af");
 } else {
     let carStatus = document.getElementById("car-field");
-carStatus.classList.add("input-invalid")
-carStatus.classList.remove("input-valid")
-    console.log("falsy af")
+carStatus.classList.add("input-invalid");
+carStatus.classList.remove("input-valid");
+// carError.innerHTML = "All fields are required!"
+    
 }
 })
 
@@ -149,3 +150,14 @@ expirationStatus.classList.remove("input-valid")
 }
 
 })
+
+//  BEN MESS WITH ERRORDIV SETTING IN THE MORNING!!!!!!!
+let nameError = document.createElement("div")
+let errorDiv = document.querySelector("#name-field")
+errorDiv.appendChild(nameError)
+nameError.className = ("nameError");
+
+// let carError = document.createElement("div")
+// let errorDiv = document.querySelector("#car-field")
+// errorDiv.appendChild(carError)
+// carError.className = ("carError");

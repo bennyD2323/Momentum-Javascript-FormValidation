@@ -28,9 +28,9 @@ Add the following validations:
 * Car year must be after 1900.
 * Car year cannot be in the future.
 * Date parking must be in the future.
-* Number of days must be a number.
-* Number of days must be between 1 and 30.
-* CVV must be a three-digit number.
+* Number of days must be a number. CHECK
+* Number of days must be between 1 and 30. CHECK
+* CVV must be a three-digit number. CHECK
 
 ### Step 4
 

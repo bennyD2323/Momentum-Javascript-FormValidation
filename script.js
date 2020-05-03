@@ -33,8 +33,8 @@ let carMake = carMakeInput.value
 
 let carModelInput = document.querySelector("#car-model");
 let carModel = carModelInput.value
-
-if(carYear && carMake && carModel){
+let regexCarYear = new RegExp("^[0-9]{4}$");
+if(carYear && carMake && carModel && regexCarYear.test(carYear) && carYear > 1900){
 let carStatus = document.getElementById("car-field");
 carStatus.classList.add("input-valid");
 carStatus.classList.remove("input-invalid");
@@ -75,8 +75,9 @@ form.addEventListener('submit', function(event){
 
 let daysInput = document.querySelector("#days")
 let days = daysInput.value
+let regexDays = new RegExp("^[0-9]{1,2}$")
 
-if(days){
+if(days && regexDays.test(days) && days > 0 && days < 31){
 let daysStatus = document.getElementById("days-field");
 daysStatus.classList.add("input-valid")
 daysStatus.classList.remove("input-invalid")
@@ -116,8 +117,9 @@ form.addEventListener('submit', function(event){
 
 let cvvInput = document.querySelector("#cvv")
 let cvv = cvvInput.value
+let regexCvv = new RegExp("^[0-9]{3}$");
+if(regexCvv.test(cvv) && cvv){
 
-if(cvv){
 let cvvStatus = document.getElementById("cvv-field");
 cvvStatus.classList.add("input-valid")
 cvvStatus.classList.remove("input-invalid")
@@ -126,7 +128,7 @@ cvvError.innerHTML = ""
     let cvvStatus = document.getElementById("cvv-field");
 cvvStatus.classList.add("input-invalid")
 cvvStatus.classList.remove("input-valid")
-cvvError.innerHTML = "CVV numbe is required!"
+cvvError.innerHTML = "CVV number is required!"
 }
 
 })
@@ -152,7 +154,7 @@ expirationError.innerHTML = "Expiration date is required!"
 
 })
 
-//  BEN MESS WITH ERRORDIV SETTING IN THE MORNING!!!!!!!
+
 let nameError = document.createElement("div")
 let nameErrorDiv = document.querySelector("#name-field")
 nameErrorDiv.appendChild(nameError)

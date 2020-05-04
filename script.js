@@ -1,7 +1,28 @@
 let form = document.querySelector("#parking-form");
 let formIsValid
 
+function validateCardNumber(number) {
+    var regex = new RegExp("^[0-9]{16}$");
+    if (!regex.test(number))
+        return false;
 
+    return luhnCheck(number);
+}
+
+function luhnCheck(val) {
+    var sum = 0;
+    for (var i = 0; i < val.length; i++) {
+        var intVal = parseInt(val.substr(i, 1));
+        if (i % 2 == 0) {
+            intVal *= 2;
+            if (intVal > 9) {
+                intVal = 1 + (intVal % 10);
+            }
+        }
+        sum += intVal;
+    }
+    return (sum % 10) == 0;
+}
 form.addEventListener('submit', function(event){
     event.preventDefault()
 
@@ -34,7 +55,9 @@ let carMake = carMakeInput.value
 let carModelInput = document.querySelector("#car-model");
 let carModel = carModelInput.value
 let regexCarYear = new RegExp("^[0-9]{4}$");
-if(carYear && carMake && carModel && regexCarYear.test(carYear) && carYear > 1900){
+let today = new Date();
+let thisYear = today.getFullYear();
+if(carYear && carMake && carModel && regexCarYear.test(carYear) && carYear > 1900 && carYear <= thisYear){
 let carStatus = document.getElementById("car-field");
 carStatus.classList.add("input-valid");
 carStatus.classList.remove("input-invalid");
@@ -55,12 +78,15 @@ form.addEventListener('submit', function(event){
 
 let startDateInput = document.querySelector("#start-date")
 let startDate = startDateInput.value
+let presentDate= Date.now();
+let reserveDate = startDateInput.valueAsNumber;
 
-if(startDate) {
+if(startDate && presentDate < reserveDate) {
 let startDateStatus = document.getElementById("start-date-field");
 startDateStatus.classList.add("input-valid")
 startDateStatus.classList.remove("input-invalid")
 startDateError.innerHTML = ""
+
 } else {
     let startDateStatus = document.getElementById("start-date-field");
 startDateStatus.classList.add("input-invalid")
@@ -72,6 +98,7 @@ startDateError.innerHTML = "Start date is required!"
 
 form.addEventListener('submit', function(event){
     event.preventDefault()
+
 
 let daysInput = document.querySelector("#days")
 let days = daysInput.value
@@ -92,18 +119,42 @@ daysStatus.classList.remove("input-valid")
 
 })
 
+function luhnCheck(val) {
+    var sum = 0;
+    for (var i = 0; i < val.length; i++) {
+        var intVal = parseInt(val.substr(i, 1));
+        if (i % 2 == 0) {
+            intVal *= 2;
+            if (intVal > 9) {
+                intVal = 1 + (intVal % 10);
+            }
+        }
+        sum += intVal;
+    }
+    return (sum % 10) == 0;
+}
+
+function validateCardNumber(number) {
+    var regex = new RegExp("^[0-9]{16}$");
+    if (!regex.test(number))
+        return false;
+
+    return luhnCheck(number);
+}
+
+
 form.addEventListener('submit', function(event){
     event.preventDefault()
 
 let ccInput = document.querySelector("#credit-card")
 let cc = ccInput.value
 
-if(cc){
+if(cc && validateCardNumber(cc) && luhnCheck(cc)){
 let ccStatus = document.getElementById("credit-card-field");
 ccStatus.classList.add("input-valid")
 ccStatus.classList.remove("input-invalid")
 ccError.innerHTML = ""
-} else {
+}  else { 
     let ccStatus = document.getElementById("credit-card-field");
 ccStatus.classList.add("input-invalid")
 ccStatus.classList.remove("input-valid")
@@ -112,8 +163,10 @@ ccError.innerHTML = "Credit card number is required!"
 
 })
 
+
 form.addEventListener('submit', function(event){
     event.preventDefault()
+    
 
 let cvvInput = document.querySelector("#cvv")
 let cvv = cvvInput.value

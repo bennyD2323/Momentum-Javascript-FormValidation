@@ -184,6 +184,8 @@ cvvStatus.classList.remove("input-valid")
 cvvError.innerHTML = "CVV number is required!"
 }
 
+
+
 })
 
 
@@ -192,13 +194,22 @@ form.addEventListener('submit', function(event){
 
 let expirationInput = document.querySelector("#expiration")
 let expiration = expirationInput.value
-
+// let expirationDate =expirationInput.valuteAsDate
+// let expirationMonth = expirationDate.getMonth();
+// let expirationYear = expirationDate.getFullYear();
+// let nowDate = new Date();
+// let nowMonth = nowDate.getMonth();
+// let nowYear = nowDate.getFullYear();
+// nowYear > expirationYear && nowMonth > expirationMonth 
 if(expiration){
+
 let expirationStatus = document.getElementById("expiration-field");
 expirationStatus.classList.add("input-valid")
 expirationStatus.classList.remove("input-invalid")
 expirationError.innerHTML = ""
-} else {
+} 
+// else if(){} 
+else {
     let expirationStatus = document.getElementById("expiration-field");
 expirationStatus.classList.add("input-invalid")
 expirationStatus.classList.remove("input-valid")

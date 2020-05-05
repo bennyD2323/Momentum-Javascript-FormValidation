@@ -194,30 +194,65 @@ form.addEventListener('submit', function(event){
 
 let expirationInput = document.querySelector("#expiration")
 let expiration = expirationInput.value
-// let expirationDate =expirationInput.valuteAsDate
-// let expirationMonth = expirationDate.getMonth();
-// let expirationYear = expirationDate.getFullYear();
-// let nowDate = new Date();
-// let nowMonth = nowDate.getMonth();
-// let nowYear = nowDate.getFullYear();
-// nowYear > expirationYear && nowMonth > expirationMonth 
-if(expiration){
+
+    let expoMo = parseInt(expirationInput.value.substr(0,2));
+    let expoYr = parseInt(expirationInput.value.substr(3,2));
+    let thePresent = new Date();
+    let nowTime = thePresent.getFullYear() % 100;
+    let expirMo = (expoMo -1)
+    let nowMo = thePresent.getUTCMonth();
+if(expiration && ((nowTime < expoYr || nowTime === expoYr && expirMo > nowMo))){
 
 let expirationStatus = document.getElementById("expiration-field");
 expirationStatus.classList.add("input-valid")
 expirationStatus.classList.remove("input-invalid")
 expirationError.innerHTML = ""
+console.log("we did it! :)")
 } 
-// else if(){} 
+
 else {
     let expirationStatus = document.getElementById("expiration-field");
 expirationStatus.classList.add("input-invalid")
 expirationStatus.classList.remove("input-valid")
 expirationError.innerHTML = "Expiration date is required!"
+console.log("we didnt do it :(")
 }
 
 })
 
+form.addEventListener('submit', function(event){
+    event.preventDefault()
+let nameField = document.querySelector("#name-field")
+let carField = document.querySelector("#car-field")
+let startDateField = document.querySelector("#start-date-field")
+let daysField = document.querySelector("#days-field")
+let ccField = document.querySelector("#credit-card-field")
+let cvvField = document.querySelector("#cvv-field")
+let expirationField = document.querySelector("#expiration-field")
+
+
+if(
+    nameField.classList.contains("input-valid") === true &&
+    carField.classList.contains("input-valid") === true &&
+    startDateField.classList.contains("input-valid") === true &&
+    daysField.classList.contains("input-valid") === true &&
+    ccField.classList.contains("input-valid") === true &&
+    cvvField.classList.contains("input-valid") === true &&
+    expirationField.classList.contains("input-valid") === true 
+) 
+    { 
+    let aday = new Date(document.querySelector("#start-date").valueAsNumber);
+    let dow = aday.getDay();
+    let price = 0;
+    for (let n = 0; n < document.querySelector("#days").value; n++) {
+      if (dow == 5 || dow == 6) price += 7;
+      else price += 5;
+      dow++;
+    }
+    if (dow > 6) dow = 0;
+    document.querySelector("#total").textContent = "Total: $" + price + ".00";
+}   else {document.querySelector("#total").textContent = "";}
+})
 
 let nameError = document.createElement("div")
 let nameErrorDiv = document.querySelector("#name-field")
@@ -253,3 +288,4 @@ let expirationError = document.createElement("div")
 let expirationErrorDiv = document.querySelector("#expiration-field")
 expirationErrorDiv.appendChild(expirationError)
 expirationError.className = ("expirationError");
+
